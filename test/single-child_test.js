@@ -54,4 +54,25 @@ describe('A SingleChild', function () {
       });
     });
   });
+
+  describe('running a sustaining command', function () {
+    before(function () {
+      // Create a script that writes time to `tmp.txt`
+      this.child = new SingleChild('node', [
+        '-e',
+        [
+          'var startTime = (+new Date()) + "";',
+          'require("http").createServer(function (req, res) {',
+          '  res.writeHead(200);',
+          '  res.write(startTime);',
+          '  res.end();',
+          '}).listen(3000);'
+        ].join('\n')
+      ]);
+    });
+
+    describe('when started', function () {
+
+    });
+  });
 });
