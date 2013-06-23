@@ -1,0 +1,43 @@
+{
+  "name": "single-child",
+  "description": "Spawn a single child process which kills itself on restart",
+  "version": "0.1.0",
+  "homepage": "https://github.com/twolfson/single-child",
+  "author": {
+    "name": "Todd Wolfson",
+    "email": "todd@twolfson.com",
+    "url": "http://twolfson.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/twolfson/single-child.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twolfson/single-child/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/twolfson/single-child/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/single-child",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.3.17",
+    "mocha": "~1.11.0"
+  },
+  "keywords": [
+    "single",
+    "singleton",
+    "spawn",
+    "child",
+    "child process"
+  ]
+}
