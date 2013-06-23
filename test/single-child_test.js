@@ -1,11 +1,21 @@
-var single_child = require('../lib/single-child.js');
+// Load in dependencies
+var SingleChild = require('../lib/single-child.js');
 
-describe("single-child", function () {
-  before(function () {
+describe('A SingleChild', function () {
+  describe('running a self-terminating command', function () {
+    before(function (done) {
+      var child = new SingleChild('node', ['-e', 'require("fs").writeFileSync("tmp.txt", +new Date())']);
+    });
 
-  });
+    describe('when started', function () {
+      it('runs the command', function () {
+      });
 
-  it("", function () {
+      describe('when started again', function () {
+        it('runs the command again', function () {
 
+        });
+      });
+    });
   });
 });

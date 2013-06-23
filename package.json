@@ -28,7 +28,9 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nimble": "0.0.2"
+  },
   "devDependencies": {
     "grunt": "~0.3.17",
     "mocha": "~1.11.0"
