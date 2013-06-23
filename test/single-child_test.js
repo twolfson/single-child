@@ -26,7 +26,6 @@ describe('A SingleChild', function () {
 
       it('runs the command', function () {
         // Load in the time
-        console.log(process.cwd());
         var content = fs.readFileSync(__dirname + '/../tmp.txt', 'utf8');
 
         // Assert something is there
@@ -37,8 +36,20 @@ describe('A SingleChild', function () {
       });
 
       describe('when started again', function () {
-        it('runs the command again', function () {
+        before(function (done) {
+          // Start the child
+          this.child.restart();
 
+          // Callback in a bit
+          setTimeout(done, 100);
+        });
+
+        it('runs the command again', function () {
+          // Load in the time
+          var content = fs.readFileSync(__dirname + '/../tmp.txt', 'utf8');
+
+          // Assert something is there
+          assert.notEqual(content, this.content1);
         });
       });
     });
