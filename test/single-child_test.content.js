@@ -60,7 +60,6 @@ module.exports = {
         '  res.writeHead(200);',
         '  res.write(startTime);',
         '  res.end();',
-        'process.on("SIGINT", process.exit);',
         '}).listen(3000);'
       ].join('\n')
     ]);

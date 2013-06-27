@@ -1,17 +1,17 @@
 'A SingleChild':
-  # - 'running a self-terminating command':
-  #   - 'when started':
-  #     - 'runs the command'
-  #     - 'when started again':
-  #       - 'runs the command again'
-  - 'running a sustaining command':
+  - 'running a self-terminating command':
     - 'when started':
-      - 'when pinged':
-        - 'the command is running'
-        - 'when pinged':
-          - 'the command is still running'
-        - 'when restarted':
-          - 'when pinged':
-            - 'the command has restarted'
+      - 'runs the command'
+      - 'when started again':
+        - 'runs the command again'
+  # - 'running a sustaining command':
+  #   - 'when started':
+  #     - 'when pinged':
+  #       - 'the command is running'
+  #       - 'when pinged':
+  #         - 'the command is still running'
+  #       - 'when restarted':
+  #         - 'when pinged':
+  #           - 'the command has restarted'
       # - 'when terminated':
       #   - 'the command has stopped'
