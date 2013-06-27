@@ -13,7 +13,7 @@ Install the module with: `npm install single-child`
 Below is a simplified implementation of [listen-spawn][listen-spawn]:
 
 ```javascript
-// Inside of spawn.js
+// Inside of app-restarter.js
 // Create a new child which starts my app
 var SingleChild = require('single-child'),
     child = new SingleChild('npm', ['start'], {stdio: [0,1,2]});
@@ -33,11 +33,12 @@ http.createServer(function (req, res) {
 }).listen(3000);
 
 // Notify the user the server is up
-console.log('App restarter is listening at http://localhost:3000/');
+console.log('App Restarter is listening at http://localhost:3000/');
 ```
 
 ```sh
-$ node spawn.js &
+$ # Start and fork our App Restarter
+$ node app-restarter.js &
 App restarter is listening at http://localhost:3000/
 
 > my-app@0.1.0 start /home/todd/github/my-app
@@ -45,6 +46,7 @@ App restarter is listening at http://localhost:3000/
 
 Running app...
 
+$ # Ping the App Restarter (which restarts the app)
 $ curl http://localhost:3000/
 
 > my-app@0.1.0 start /home/todd/github/my-app
@@ -142,7 +144,9 @@ console.log('App restarter is listening at http://localhost:3000/');
 ```
 
 ```sh
-$ App restarter is listening at http://localhost:3000/
+$ # Start and fork our App Restarter
+$ node app-restarter.js &
+App restarter is listening at http://localhost:3000/
 Starting app!
 
 > my-app@0.1.0 start /home/todd/github/my-app
@@ -151,6 +155,7 @@ Starting app!
 Running app...
 App exited!
 
+$ # Ping the App Restarter (which restarts the app)
 $ curl http://localhost:3000/
 Starting app!
 
