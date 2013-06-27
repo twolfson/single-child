@@ -15,3 +15,6 @@
             - 'the command has restarted'
       # - 'when terminated':
       #   - 'the command has stopped'
+'A program using SingleChild':
+ - 'when terminated':
+   - 'cleans up its children'
