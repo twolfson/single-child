@@ -1,4 +1,4 @@
-'A SingleChild':
+- 'A SingleChild':
   # - 'running a self-terminating command':
   #   - 'when started':
   #     - 'runs the command'
@@ -15,6 +15,6 @@
             - 'the command has restarted'
       # - 'when terminated':
       #   - 'the command has stopped'
-'A program using SingleChild':
- - 'when terminated':
-   - 'cleans up its children'
+# - 'A program using SingleChild':
+#  - 'when terminated':
+#    - 'cleans up its children'

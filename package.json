@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "grunt": "~0.3.17",
-    "doubleshot": "~2.5.0",
+    "doubleshot": "~2.6.0",
     "request": "~2.21.0"
   },
   "keywords": [
