@@ -36,11 +36,10 @@ module.exports = {
   },
   'when started again': 'when restarted',
   'when restarted': function (done) {
-    // Start the child
-    this.child.restart();
-
-    // Callback in a bit
-    setTimeout(done, 100);
+    // Restart the child then callback a little after it starts
+    this.child.restart(function () {
+      setTimeout(done, 100);
+    });
   },
   'runs the command again': function () {
     // Load in the time
@@ -61,9 +60,16 @@ module.exports = {
         '  res.writeHead(200);',
         '  res.write(startTime);',
         '  res.end();',
+        'process.on("SIGINT", process.exit);',
         '}).listen(3000);'
       ].join('\n')
     ]);
+    this.child.on('killed', function () {
+      console.log('kill');
+    });
+    this.child.on('started', function () {
+      console.log('start');
+    });
   },
   'when pinged': function (done) {
     // Call out to our server

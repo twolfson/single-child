@@ -1,9 +1,9 @@
 'A SingleChild':
-  - 'running a self-terminating command':
-    - 'when started':
-      - 'runs the command'
-      - 'when started again':
-        - 'runs the command again'
+  # - 'running a self-terminating command':
+  #   - 'when started':
+  #     - 'runs the command'
+  #     - 'when started again':
+  #       - 'runs the command again'
   - 'running a sustaining command':
     - 'when started':
       - 'when pinged':
