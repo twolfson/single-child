@@ -76,7 +76,6 @@ module.exports = {
     var that = this;
     request('http://localhost:3000/', function (err, req, body) {
       // Save the response and callback
-      console.log('args', arguments);
       that.serverContent = body;
       done(err);
     });
@@ -94,7 +93,6 @@ module.exports = {
   },
   'when requested from': function (done) {
     // Call out to our server
-    console.log('hai');
     var that = this;
     request('http://localhost:3000/', function (err, req, body) {
       // Save the response and callback
