@@ -2,7 +2,7 @@
 
 Spawn a single child process which kills itself on restart.
 
-This was built as a module of [listen-spawn][listen-spawn], a CLI tool that starts a web-server and runs a command every time it is pinged. Think of it as a [nodemon][nodemon] over HTTP.
+This was built as a module of [listen-spawn][listen-spawn], a CLI tool that starts a server and runs a command every time it is pinged; a [nodemon][nodemon] over HTTP.
 
 [listen-spawn]: https://github.com/twolfson/listen-spawn
 [nodemon]: https://github.com/remy/nodemon
@@ -10,7 +10,10 @@ This was built as a module of [listen-spawn][listen-spawn], a CLI tool that star
 ## Getting Started
 Install the module with: `npm install single-child`
 
+Below is a simplified implementation of [listen-spawn][listen-spawn]:
+
 ```javascript
+// Inside of spawn.js
 // Create a new child which starts my app
 var SingleChild = require('single-child'),
     child = new SingleChild('npm', ['start'], {stdio: [0,1,2]});
@@ -18,10 +21,36 @@ var SingleChild = require('single-child'),
 // Start my child (and hence my app)
 child.start();
 
-// Restart my app every 10 seconds
-setInterval(function () {
+// Begin a server which restarts the app when hit
+var http = require('http');
+http.createServer(function (req, res) {
+  // We received a ping, restart the child
   child.restart();
-}, 10000);
+
+  // Send a NO CONTENT response
+  res.writeHead(204);
+  res.end();
+}).listen(3000);
+
+// Notify the user the server is up
+console.log('App restarter is listening at http://localhost:3000/');
+```
+
+```sh
+$ node spawn.js &
+App restarter is listening at http://localhost:3000/
+
+> my-app@0.1.0 start /home/todd/github/my-app
+> echo 'Running app...'
+
+Running app...
+
+$ curl http://localhost:3000/
+
+> my-app@0.1.0 start /home/todd/github/my-app
+> echo 'Running app...'
+
+Running app...
 ```
 
 ## Documentation
@@ -79,7 +108,7 @@ child.kill([options], [cb]);
 - `killed()` is run after a child is killed
 
 ## Examples
-A watered down [listen-spawn][listen-spawn] example:
+Below is the same example as before but utilizing events for better notifications.
 
 ```js
 // Create a new child which starts my app
@@ -90,8 +119,8 @@ var SingleChild = require('single-child'),
 child.start();
 
 // Notify user on start and exit events
-child.on('started', function () {
-  console.log('App started!');
+child.on('starting', function () {
+  console.log('Starting app!');
 });
 child.on('exited', function () {
   console.log('App exited!');
@@ -104,14 +133,33 @@ http.createServer(function (req, res) {
   child.restart();
 
   // Send a NO CONTENT response
-  res.write(204);
-  res.close();
+  res.writeHead(204);
+  res.end();
 }).listen(3000);
 
 // Notify the user the server is up
-console.log('Server is listening at http://localhost:3000/');
+console.log('App restarter is listening at http://localhost:3000/');
 ```
 
+```sh
+$ App restarter is listening at http://localhost:3000/
+Starting app!
+
+> my-app@0.1.0 start /home/todd/github/my-app
+> echo 'Running app...'
+
+Running app...
+App exited!
+
+$ curl http://localhost:3000/
+Starting app!
+
+> my-app@0.1.0 start /home/todd/github/my-app
+> echo 'Running app...'
+
+Running app...
+App exited!
+```
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
 
