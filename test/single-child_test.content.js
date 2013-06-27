@@ -113,16 +113,16 @@ module.exports = {
 
     // Start a process which starts a SingleChild'd node server
     var cmd = [
-          // 'var SingleChild = require("../lib/single-child"),',
-          // '    child = new SingleChild("node", ["-e", "' +
+          'var SingleChild = require("../lib/single-child"),',
+          '    child = new SingleChild("node", ["-e", "' +
             [
               "require('http').createServer(function (req, res) {",
               "  res.writeHead(204);",
               "  res.end();",
               "}).listen(5000);"
             ].join('')
-            // + '"]);',
-          // 'child.start();'
+            + '"]);',
+          'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
 
@@ -163,7 +163,6 @@ module.exports = {
     // Ping our server
     request('http://localhost:5000/', function (err, res, body) {
       // Assert it is up and callback
-      console.log(arguments);
       assert.notEqual(err, null);
       done();
     });
