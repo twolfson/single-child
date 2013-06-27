@@ -12,17 +12,31 @@ module.exports = {
   'A SingleChild': function () {
   },
 
-  // Commands for the first test
-  'running a self-terminating command': function () {
-    // Create a script that writes time to `tmp.txt`
-    this.child = new SingleChild('node', ['-e', 'require("fs").writeFileSync("tmp.txt", +new Date())']);
-  },
+  // Common child actions
   'when started': function (done) {
     // Start the child
     this.child.start();
 
     // Callback in a bit
     setTimeout(done, 100);
+  },
+  'when started again': 'when restarted',
+  'when restarted': function (done) {
+    // Restart the child then callback a little after it starts
+    this.child.restart(function () {
+      setTimeout(done, 100);
+    });
+  },
+  'when terminated': function (done) {
+    this.child.stop(function () {
+      setTimeout(done, 100);
+    });
+  },
+
+  // Commands for the first test
+  'running a self-terminating command': function () {
+    // Create a script that writes time to `tmp.txt`
+    this.child = new SingleChild('node', ['-e', 'require("fs").writeFileSync("tmp.txt", +new Date())']);
   },
   'runs the command': function () {
     // Load in the time
@@ -33,13 +47,6 @@ module.exports = {
 
     // Save that something for later
     this.fsContent = content;
-  },
-  'when started again': 'when restarted',
-  'when restarted': function (done) {
-    // Restart the child then callback a little after it starts
-    this.child.restart(function () {
-      setTimeout(done, 100);
-    });
   },
   'runs the command again': function () {
     // Load in the time
@@ -63,19 +70,13 @@ module.exports = {
         '}).listen(3000);'
       ].join('\n')
     ]);
-    this.child.on('killed', function () {
-      console.log('kill');
-    });
-    this.child.on('started', function () {
-      console.log('start');
-    });
   },
   'when pinged': function (done) {
     // Call out to our server
     var that = this;
     request('http://localhost:3000/', function (err, req, body) {
       // Save the response and callback
-      console.log(body);
+      console.log('args', arguments);
       that.serverContent = body;
       done(err);
     });
@@ -90,5 +91,19 @@ module.exports = {
   },
   'the command has restarted': function () {
     assert.notEqual(this.serverContent, this._serverContent);
+  },
+  'when requested from': function (done) {
+    // Call out to our server
+    console.log('hai');
+    var that = this;
+    request('http://localhost:3000/', function (err, req, body) {
+      // Save the response and callback
+      that.serverErr = err;
+      that.serverContent = body;
+      done();
+    });
+  },
+  'the command has stopped': function () {
+    assert(this.serverErr);
   }
 };

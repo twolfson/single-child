@@ -6,15 +6,16 @@
   #       - 'runs the command again'
   - 'running a sustaining command':
     - 'when started':
-      - 'when pinged':
-        - 'the command is running'
-        - 'when pinged':
-          - 'the command is still running'
-        - 'when restarted':
-          - 'when pinged':
-            - 'the command has restarted'
-      # - 'when terminated':
-      #   - 'the command has stopped'
+      # - 'when pinged':
+      #   - 'the command is running'
+      #   - 'when pinged':
+      #     - 'the command is still running'
+      #   - 'when restarted':
+      #     - 'when pinged':
+      #       - 'the command has restarted'
+      - 'when terminated':
+        - 'when requested from':
+          - 'the command has stopped'
 # - 'A program using SingleChild':
 #  - 'when terminated':
 #    - 'cleans up its children'
