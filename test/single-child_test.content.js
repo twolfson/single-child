@@ -32,9 +32,10 @@ module.exports = {
     assert.notEqual(content, '');
 
     // Save that something for later
-    this.content1 = content;
+    this.fsContent = content;
   },
-  'when started again': function (done) {
+  'when started again': 'when restarted',
+  'when restarted': function (done) {
     // Start the child
     this.child.restart();
 
@@ -46,7 +47,7 @@ module.exports = {
     var content = fs.readFileSync(__dirname + '/../tmp.txt', 'utf8');
 
     // Assert something is there
-    assert.notEqual(content, this.content1);
+    assert.notEqual(content, this.fsContent);
   },
 
   // Commands for the second command
@@ -69,11 +70,20 @@ module.exports = {
     var that = this;
     request('http://localhost:3000/', function (err, req, body) {
       // Save the response and callback
-      that.content2 = body;
+      console.log(body);
+      that.serverContent = body;
       done(err);
     });
   },
   'the command is running': function () {
-    console.log(this.content2);
+    // Assert the ping response was valid and save it for later
+    assert(this.serverContent);
+    this._serverContent = this.serverContent;
+  },
+  'the command is still running': function () {
+    assert.strictEqual(this.serverContent, this._serverContent);
+  },
+  'the command has restarted': function () {
+    assert.notEqual(this.serverContent, this._serverContent);
   }
 };

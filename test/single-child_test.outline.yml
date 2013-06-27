@@ -8,9 +8,10 @@
     - 'when started':
       - 'when pinged':
         - 'the command is running'
-      # - 'when pinged':
-      #   - 'the command is still running'
-      # - 'when restarted':
-      #   - 'the command has restarted'
+        - 'when pinged':
+          - 'the command is still running'
+        - 'when restarted':
+          - 'when pinged':
+            - 'the command has restarted'
       # - 'when terminated':
       #   - 'the command has stopped'
