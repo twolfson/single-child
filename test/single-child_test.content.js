@@ -50,30 +50,25 @@ module.exports = {
   },
 
   // Commands for the second command
-  'running a sustaining command': {
-    before: function () {
-      // Create a script that writes time to `tmp.txt`
-      this.child = new SingleChild('node', [
-        '-e',
-        [
-          'var startTime = (+new Date()) + "";',
-          'require("http").createServer(function (req, res) {',
-          '  res.writeHead(200);',
-          '  res.write(startTime);',
-          '  res.end();',
-          '}).listen(3000);'
-        ].join('\n')
-      ]);
-      this.child.on('killed', function () {
-        console.log('kill');
-      });
-      this.child.on('started', function () {
-        console.log('start');
-      });
-    },
-    after: function () {
-      this.child.kill();
-    }
+  'running a sustaining command': function () {
+    // Create a script that writes time to `tmp.txt`
+    this.child = new SingleChild('node', [
+      '-e',
+      [
+        'var startTime = (+new Date()) + "";',
+        'require("http").createServer(function (req, res) {',
+        '  res.writeHead(200);',
+        '  res.write(startTime);',
+        '  res.end();',
+        '}).listen(3000);'
+      ].join('\n')
+    ]);
+    this.child.on('killed', function () {
+      console.log('kill');
+    });
+    this.child.on('started', function () {
+      console.log('start');
+    });
   },
   'when pinged': function (done) {
     // Call out to our server
