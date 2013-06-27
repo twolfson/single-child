@@ -2,6 +2,7 @@
 var SingleChild = require('../lib/single-child.js'),
     fs = require('fs'),
     assert = require('assert'),
+    spawn = require('child_process').spawn,
     request = require('request');
 
 // Cleanup temporary files before starting
@@ -27,7 +28,7 @@ module.exports = {
       setTimeout(done, 100);
     });
   },
-  'when terminated': function (done) {
+  'when stopped': function (done) {
     this.child.stop(function () {
       setTimeout(done, 100);
     });
@@ -103,5 +104,43 @@ module.exports = {
   },
   'the command has stopped': function () {
     assert(this.serverErr);
+  },
+
+  // Commands for the third batch
+  'A program using SingleChild': function (done) {
+    // Relocate to our directory
+    process.chdir(__dirname);
+
+    // Start a process which starts a SingleChild'd node server
+    var cmd = [
+          'var SingleChild = require("../lib/single-child"),',
+          '    child = new SingleChild("node", ["-e", "' +
+            [
+              "require('http').createServer(function (req, res) {",
+              "  res.writeHead(204);",
+              "  res.end();",
+              "}).listen(5000);"
+            ].join('') +
+            '"]);',
+          'child.start();'
+        ].join('\n');
+    console.log(cmd);
+    this.child = spawn('node', ['-e', cmd]);
+
+    // When there is an error, spit it out
+    this.child.stderr.on('data', function (content) {
+      console.error(content + '');
+    });
+
+    setTimeout(done, 100);
+  },
+  'is running its child': function (done) {
+    // Ping our server
+    request('http://localhost:5000/', function (err, req, body) {
+      // Assert it is up and callback
+      assert.strictEqual(err, null);
+      assert.strictEqual(res.statusCode, 204);
+      done();
+    });
   }
 };
