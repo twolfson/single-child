@@ -138,7 +138,7 @@ module.exports = {
     });
 
     // Callback when the process is done launching
-    setTimeout(done, 100);
+    setTimeout(done, 200);
   },
   'is running its child': function (done) {
     // Ping our server
