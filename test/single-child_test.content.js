@@ -113,16 +113,16 @@ module.exports = {
 
     // Start a process which starts a SingleChild'd node server
     var cmd = [
-          'var SingleChild = require("../lib/single-child"),',
-          '    child = new SingleChild("node", ["-e", "' +
+          // 'var SingleChild = require("../lib/single-child"),',
+          // '    child = new SingleChild("node", ["-e", "' +
             [
               "require('http').createServer(function (req, res) {",
               "  res.writeHead(204);",
               "  res.end();",
               "}).listen(5000);"
-            ].join('') +
-            '"]);',
-          'child.start();'
+            ].join('')
+            // + '"]);',
+          // 'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
 
@@ -130,6 +130,9 @@ module.exports = {
     this.child = child;
 
     // When there is an error, spit it out
+    child.stdout.on('data', function (content) {
+      console.log(content + '');
+    });
     child.stderr.on('data', function (content) {
       console.error(content + '');
     });
