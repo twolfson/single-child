@@ -1,7 +1,8 @@
 // Load in dependencies
 var SingleChild = require('../lib/single-child.js'),
     fs = require('fs'),
-    assert = require('assert');
+    assert = require('assert'),
+    request = require('request');
 
 // Cleanup temporary files before starting
 try { fs.unlinkSync('tmp.txt'); } catch (e) {}
@@ -62,5 +63,17 @@ module.exports = {
         '}).listen(3000);'
       ].join('\n')
     ]);
+  },
+  'when pinged': function (done) {
+    // Call out to our server
+    var that = this;
+    request('http://localhost:3000/', function (err, req, body) {
+      // Save the response and callback
+      that.content2 = body;
+      done(err);
+    });
+  },
+  'the command is running': function () {
+    console.log(this.content2);
   }
 };

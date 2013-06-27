@@ -6,7 +6,8 @@
         - 'runs the command again'
   - 'running a sustaining command':
     - 'when started':
-      - 'runs the command'
+      - 'when pinged':
+        - 'the command is running'
       # - 'when pinged':
       #   - 'the command is still running'
       # - 'when restarted':
