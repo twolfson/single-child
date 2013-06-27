@@ -123,23 +123,45 @@ module.exports = {
             ].join('') +
             '"]);',
           'child.start();'
-        ].join('\n');
-    console.log(cmd);
-    this.child = spawn('node', ['-e', cmd]);
+        ].join('\n'),
+        child = spawn('node', ['-e', cmd]);
+
+    // Save the child for later
+    this.child = child;
 
     // When there is an error, spit it out
-    this.child.stderr.on('data', function (content) {
+    child.stderr.on('data', function (content) {
       console.error(content + '');
     });
 
+    // Callback when the process is done launching
     setTimeout(done, 100);
   },
   'is running its child': function (done) {
     // Ping our server
-    request('http://localhost:5000/', function (err, req, body) {
+    request('http://localhost:5000/', function (err, res, body) {
       // Assert it is up and callback
       assert.strictEqual(err, null);
       assert.strictEqual(res.statusCode, 204);
+      done();
+    });
+  },
+  'when killed': function (done) {
+    // Kill the child
+    var child = this.child;
+    child.kill();
+
+    // When it is done closing, callback
+    child.on('exit', function childKilled () {
+      done();
+    });
+  },
+  'cleans up its children': function (done) {
+    // Ping our server
+    request('http://localhost:5000/', function (err, res, body) {
+      // Assert it is up and callback
+      console.log(arguments);
+      assert.notEqual(err, null);
       done();
     });
   }
