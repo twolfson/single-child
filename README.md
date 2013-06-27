@@ -37,6 +37,7 @@ console.log('App Restarter is listening at http://localhost:3000/');
 ```
 
 ```sh
+$ # Inside of a shell
 $ # Start and fork our App Restarter
 $ node app-restarter.js &
 App restarter is listening at http://localhost:3000/
