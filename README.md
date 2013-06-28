@@ -97,7 +97,7 @@ child.kill([options], [cb]);
  * @param {Object} [options] Options for the kill action
  * @param {Mixed} [options.signal] Signal to use when killing
  * @param {Function} [cb] Callback to run when process has been killed.
- *     Receives same params as node's ChildProcess#close event
+ *     Receives same params as node's ChildProcess#exit event
  */
 ```
 
@@ -105,10 +105,10 @@ child.kill([options], [cb]);
 `SingleChild` fires the following events over its lifecycle:
 
 - `starting()` is run before a child is spawned
-- `started()` is run after a child is spawned (does not mean process is running)
+- `started(child)` is run after a child is spawned (does not mean process is running)
 - `exited(code, signal)` is run when a child exits
-- `killing()` is run before a child is killed
-- `killed()` is run after a child is killed
+- `killing(child)` is run before a child is killed
+- `killed(code, signal)` is run after a child is killed
 
 ## Examples
 Below is the same example as before but utilizing events for better notifications.
