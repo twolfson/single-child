@@ -1,7 +1,7 @@
 {
   "name": "single-child",
   "description": "Spawn a single child process which kills itself on restart",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/twolfson/single-child",
   "author": {
     "name": "Todd Wolfson",
