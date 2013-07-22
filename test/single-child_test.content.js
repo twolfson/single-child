@@ -152,6 +152,7 @@ module.exports = {
   'when killed': function (done) {
     // Kill the child
     var child = this.child;
+    console.log(child.pid);
     child.kill();
 
     // When it is done closing, callback
