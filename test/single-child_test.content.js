@@ -115,13 +115,13 @@ module.exports = {
     var cmd = [
           'var SingleChild = require("../lib/single-child"),',
           '    child = new SingleChild("node", ["-e", "' +
-            [
-              "require('http').createServer(function (req, res) {",
-              "  res.writeHead(204);",
-              "  res.end();",
-              "}).listen(5000);"
-            ].join('')
-            + '"]);',
+              [
+                "require('http').createServer(function (req, res) {",
+                "  res.writeHead(204);",
+                "  res.end();",
+                "}).listen(5000);"
+              ].join('') +
+              '"]);',
           'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
@@ -162,7 +162,9 @@ module.exports = {
   'cleans up its children': function (done) {
     // Ping our server
     request('http://localhost:5000/', function (err, res, body) {
-      // Assert it is up and callback
+      // Assert it is down and callback
+      // DEV: We are looking for an ECONNREFUSED
+      console.log(err, body);
       assert.notEqual(err, null);
       done();
     });
