@@ -156,7 +156,8 @@ module.exports = {
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
-      done();
+      setTimeout(done, 1000);
+      // done();
     });
   },
   'cleans up its children': function (done) {
