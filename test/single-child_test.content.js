@@ -113,32 +113,29 @@ module.exports = {
 
     // Start a process which starts a SingleChild'd node server
     var cmd = [
-          // 'var SingleChild = require("../lib/single-child"),',
-          'var child = require("child_process").spawn("node", ["-e", "' +
-              [
-                "require('http').createServer(function (req, res) {",
-                "  res.writeHead(204);",
-                "  res.end();",
-                "}).listen(5000);"
-              ].join('') +
-              '"]);'
-          // 'child.start();'
+          'var SingleChild = require("../lib/single-child"),',
+          '    child = new SingleChild("node", ["-e", "' +
+            [
+              "require('http').createServer(function (req, res) {",
+              "  res.writeHead(204);",
+              "  res.end();",
+              "}).listen(5000);"
+            ].join('')
+            + '"]);',
+          'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
 
     // Save the child for later
     this.child = child;
 
-    // TODO: Since this refuses to work, it might be the way we kill from the CLI vs here
-    // TODO: Try out using single child on the cli in our gist
-
-    // // When there is an error, spit it out
-    // child.stdout.on('data', function (content) {
-    //   console.log(content + '');
-    // });
-    // child.stderr.on('data', function (content) {
-    //   console.error(content + '');
-    // });
+    // When there is an error, spit it out
+    child.stdout.on('data', function (content) {
+      console.log(content + '');
+    });
+    child.stderr.on('data', function (content) {
+      console.error(content + '');
+    });
 
     // Callback when the process is done launching
     setTimeout(done, 200);
@@ -155,14 +152,11 @@ module.exports = {
   'when killed': function (done) {
     // Kill the child
     var child = this.child;
-    console.log(child.pid);
     child.kill();
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
-      console.log('calling back');
-      setTimeout(done, 1000);
-      // done();
+      done();
     });
   },
   'cleans up its children': function (done) {
