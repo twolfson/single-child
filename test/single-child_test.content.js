@@ -119,8 +119,9 @@ module.exports = {
     // console.log('node',
       '-e',
       [
+        "console.log('hi there');",
         "var startTime = (+new Date()) + '',",
-        "    SingleChild = require('../lib/single-child'),",
+        "    SingleChild = require('" + __dirname + "/../lib/single-child'),",
         "    child = new SingleChild('node', ['-e', '" +
           [
             "require(\\'http\\').createServer(function (req, res) {",
@@ -133,6 +134,15 @@ module.exports = {
         "child.start();"
       ].join('')
     ]);
+
+    this.child.on('started', function (child) {
+      child.stdout.on('data', function (content) {
+        console.log(content + '');
+      });
+      child.stderr.on('data', function (content) {
+        console.error(content + '');
+      });
+    });
     // );
   },
 
