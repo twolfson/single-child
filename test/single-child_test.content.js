@@ -123,12 +123,13 @@ module.exports = {
   // DEV: This is caused by a bug with Windows for not killing its children's children
   'running a double nested command': function () {
     // Create a script that writes time to `tmp.txt`
+    var relPath = path.relative(process.cwd(), __dirname + '/../lib/single-child').replace(/\\/g, '/');
     this.child = new SingleChild('node', [
     // console.log('node',
       '-e',
       [
         "console.log('hi there');",
-        "var SingleChild = require('./" + path.relative(process.cwd(), __dirname + '/../lib/single-child').replace(/\\/g, '/') + "'),",
+        "var SingleChild = require('./" + relPath + "'),",
         "    child = new SingleChild('node', ['-e', '" +
           [
             "var startTime = (+new Date()) + \\'\\';",
