@@ -155,18 +155,18 @@ module.exports = {
     });
   },
   'when killed': function (done) {
-    // Kill the child
+    // When the child dies, callback
     var child = this.child;
-    if (isWindows) {
-      exec('taskkill /pid ' + child.pid + ' /F', console.log);
-    } else {
-      child.kill();
-    }
-
-    // When it is done closing, callback
     child.on('exit', function childKilled () {
       done();
     });
+
+    // Kill the child
+    if (isWindows) {
+      exec('taskkill /pid ' + child.pid + ' /T /F', console.log);
+    } else {
+      child.kill();
+    }
   },
   'cleans up its children': function (done) {
     // Ping our server
