@@ -121,13 +121,16 @@ module.exports = {
                 "  res.end();",
                 "}).listen(5000);"
               ].join('') +
-              '"]);',
+              '"]);'
           // 'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
 
     // Save the child for later
     this.child = child;
+
+    // TODO: Since this refuses to work, it might be the way we kill from the CLI vs here
+    // TODO: Try out using single child on the cli in our gist
 
     // // When there is an error, spit it out
     // child.stdout.on('data', function (content) {
