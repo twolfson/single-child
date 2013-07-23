@@ -2,8 +2,11 @@
 var SingleChild = require('../lib/single-child.js'),
     fs = require('fs'),
     assert = require('assert'),
-    spawn = require('child_process').spawn,
-    request = require('request');
+    cp = require('child_process'),
+    spawn = cp.spawn,
+    exec = cp.exec,
+    request = require('request'),
+    isWindows = process.platform === 'win32';
 
 // TODO: Test twice nested programs for tree-kill verification
 
@@ -154,15 +157,16 @@ module.exports = {
   'when killed': function (done) {
     // Kill the child
     var child = this.child;
-    child.kill('SIGINT');
-    // child.kill();
+    if (isWindows) {
+      exec('taskkill /pid ' + child.pid + ' /F', console.log);
+    } else {
+      child.kill();
+    }
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
       done();
-      // setTimeout(done, 1000);
     });
-    // require('child_process').exec('taskkill /pid ' + child.pid + ' /F', console.log);
   },
   'cleans up its children': function (done) {
     // Ping our server
