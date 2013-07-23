@@ -157,8 +157,8 @@ module.exports = {
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
-      // done();
-      setTimeout(done, 1000);
+      done();
+      // setTimeout(done, 1000);
     });
     // require('child_process').exec('taskkill /pid ' + child.pid + ' /F', console.log);
   },
