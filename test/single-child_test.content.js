@@ -152,12 +152,13 @@ module.exports = {
   'when killed': function (done) {
     // Kill the child
     var child = this.child;
-    child.kill('SIGINT');
+    // child.kill('SIGINT');
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
       done();
     });
+    require('child_process').exec('taskkill /pid ' + child.pid + ' /T /F', console.log);
   },
   'cleans up its children': function (done) {
     // Ping our server
