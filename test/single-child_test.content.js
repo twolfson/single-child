@@ -152,7 +152,7 @@ module.exports = {
   'when killed': function (done) {
     // Kill the child
     var child = this.child;
-    child.kill();
+    child.kill('SIGINT');
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
