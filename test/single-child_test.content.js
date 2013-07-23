@@ -1,6 +1,7 @@
 // Load in dependencies
 var SingleChild = require('../lib/single-child.js'),
     fs = require('fs'),
+    path = require('path'),
     assert = require('assert'),
     cp = require('child_process'),
     spawn = cp.spawn,
@@ -127,7 +128,7 @@ module.exports = {
       '-e',
       [
         "console.log('hi there');",
-        "var SingleChild = require('./lib/single-child'),",
+        "var SingleChild = require('./" + path.relative(process.cwd(), __dirname + '/../lib/single-child').replace(/\\/g, '/') + "'),",
         "    child = new SingleChild('node', ['-e', '" +
           [
             "var startTime = (+new Date()) + \\'\\';",
