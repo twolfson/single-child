@@ -24,7 +24,7 @@ module.exports = {
     this.child.start();
 
     // Callback in a bit
-    setTimeout(done, 500);
+    setTimeout(done, 400);
   },
   'when started again': 'when restarted',
   'when restarted': function (done) {
@@ -82,6 +82,7 @@ module.exports = {
     var that = this;
     request('http://localhost:3000/', function (err, req, body) {
       // Save the response and callback
+      console.log('res', err, body);
       that.serverContent = body;
       done(err);
     });
@@ -120,13 +121,12 @@ module.exports = {
       '-e',
       [
         "console.log('hi there');",
-        "var startTime = (+new Date()) + '',",
-        "    SingleChild = require('" + __dirname + "/../lib/single-child'),",
+        "var SingleChild = require('" + __dirname + "/../lib/single-child'),",
         "    child = new SingleChild('node', ['-e', '" +
           [
             "require(\\'http\\').createServer(function (req, res) {",
             "  res.writeHead(200);",
-            "  res.write(startTime);",
+            "  res.write(new Date() + \\'\\');",
             "  res.end();",
             "}).listen(3000);"
           ].join('') +
