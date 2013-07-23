@@ -163,6 +163,10 @@ module.exports = {
 
     // Kill the child
     if (isWindows) {
+      // DEV: This is not an accurate representation of the test but it does get it to pass
+      // DEV: What is happening is we are killing the process tree.
+      // DEV: Otherwise, Windows kills the top level and does not allow for cleanup.
+      // DEV: https://github.com/joyent/node/issues/3259#issuecomment-5668754
       exec('taskkill /pid ' + child.pid + ' /T /F', console.log);
     } else {
       child.kill();
