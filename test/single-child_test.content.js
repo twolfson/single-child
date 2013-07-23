@@ -115,13 +115,13 @@ module.exports = {
     var cmd = [
           'var SingleChild = require("../lib/single-child"),',
           '    child = new SingleChild("node", ["-e", "' +
-            [
-              "require('http').createServer(function (req, res) {",
-              "  res.writeHead(204);",
-              "  res.end();",
-              "}).listen(5000);"
-            ].join('')
-            + '"]);',
+                [
+                  "require('http').createServer(function (req, res) {",
+                  "  res.writeHead(204);",
+                  "  res.end();",
+                  "}).listen(5000);"
+                ].join('') +
+              '"]);',
           'child.start();'
         ].join('\n'),
         child = spawn('node', ['-e', cmd]);
