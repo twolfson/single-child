@@ -153,12 +153,14 @@ module.exports = {
     // Kill the child
     var child = this.child;
     // child.kill('SIGINT');
+    child.kill();
 
     // When it is done closing, callback
     child.on('exit', function childKilled () {
-      done();
+      // done();
+      setTimeout(done, 1000);
     });
-    require('child_process').exec('taskkill /pid ' + child.pid + ' /F', console.log);
+    // require('child_process').exec('taskkill /pid ' + child.pid + ' /F', console.log);
   },
   'cleans up its children': function (done) {
     // Ping our server
