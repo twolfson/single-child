@@ -5,6 +5,8 @@ var SingleChild = require('../lib/single-child.js'),
     spawn = require('child_process').spawn,
     request = require('request');
 
+// TODO: Test twice nested programs for tree-kill verification
+
 // Cleanup temporary files before starting
 try { fs.unlinkSync('tmp.txt'); } catch (e) {}
 
