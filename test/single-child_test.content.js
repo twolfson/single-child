@@ -24,7 +24,7 @@ module.exports = {
     this.child.start();
 
     // Callback in a bit
-    setTimeout(done, 100);
+    setTimeout(done, 500);
   },
   'when started again': 'when restarted',
   'when restarted': function (done) {
