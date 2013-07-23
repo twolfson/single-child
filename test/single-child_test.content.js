@@ -115,26 +115,25 @@ module.exports = {
   // DEV: This is caused by a bug with Windows for not killing its children's children
   'running a double nested command': function () {
     // Create a script that writes time to `tmp.txt`
-    // this.child = new SingleChild('node', [
-    console.log(
+    this.child = new SingleChild('node', [
+    // console.log('node',
       '-e',
       [
-        'node -e ' +
-        [
-          "var startTime = (+new Date()) + '',",
-          "    SingleChild = require('../lib/single-child'),",
-          "    child = new SingleChild('node', ['-e', '" +
+        "var startTime = (+new Date()) + '',",
+        "    SingleChild = require('../lib/single-child'),",
+        "    child = new SingleChild('node', ['-e', '" +
           [
-            'require("http").createServer(function (req, res) {',
-            '  res.writeHead(200);',
-            '  res.write(startTime);',
-            '  res.end();',
-            '}).listen(3000);'
-          ].join('')
-        ].join('')
+            "require(\\'http\\').createServer(function (req, res) {",
+            "  res.writeHead(200);",
+            "  res.write(startTime);",
+            "  res.end();",
+            "}).listen(3000);"
+          ].join('') +
+        "']);",
+        "child.start();"
       ].join('')
-    // ]);
-    );
+    ]);
+    // );
   },
 
   // Commands for the spawned batch
