@@ -158,7 +158,7 @@ module.exports = {
     child.on('exit', function childKilled () {
       done();
     });
-    require('child_process').exec('taskkill /pid ' + child.pid + ' /T /F', console.log);
+    require('child_process').exec('taskkill /pid ' + child.pid + ' /F', console.log);
   },
   'cleans up its children': function (done) {
     // Ping our server
