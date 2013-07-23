@@ -4,6 +4,8 @@ Spawn a single child process which kills itself on restart.
 
 This was built as a module of [listen-spawn][listen-spawn], a CLI tool that starts a server and runs a command every time it is pinged; a [nodemon][nodemon] over HTTP.
 
+Supported and tested on Linux and Windows.
+
 [listen-spawn]: https://github.com/twolfson/listen-spawn
 [nodemon]: https://github.com/remy/nodemon
 

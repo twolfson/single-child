@@ -1,4 +1,6 @@
 # single-child changelog
+0.3.1 - Added note about supporting Linux and Windows
+
 0.3.0 - Added Windows support with test against nested tree programs
 
 0.2.0 - Added more data to events
