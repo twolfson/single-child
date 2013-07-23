@@ -167,7 +167,7 @@ module.exports = {
       // DEV: What is happening is we are killing the process tree.
       // DEV: Otherwise, Windows kills the top level and does not allow for cleanup.
       // DEV: https://github.com/joyent/node/issues/3259#issuecomment-5668754
-      exec('taskkill /pid ' + child.pid + ' /T /F', console.log);
+      exec('taskkill /pid ' + child.pid + ' /T /F');
     } else {
       child.kill();
     }
@@ -177,7 +177,6 @@ module.exports = {
     request('http://localhost:5000/', function (err, res, body) {
       // Assert it is down and callback
       // DEV: We are looking for an ECONNREFUSED
-      console.log(err, body);
       assert.notEqual(err, null);
       done();
     });
