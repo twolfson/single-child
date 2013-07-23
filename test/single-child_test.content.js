@@ -125,10 +125,8 @@ module.exports = {
     // Create a script that writes time to `tmp.txt`
     var relPath = path.relative(process.cwd(), __dirname + '/../lib/single-child').replace(/\\/g, '/');
     this.child = new SingleChild('node', [
-    // console.log('node',
       '-e',
       [
-        "console.log('hi there');",
         "var SingleChild = require('./" + relPath + "'),",
         "    child = new SingleChild('node', ['-e', '" +
           [
@@ -143,16 +141,6 @@ module.exports = {
         "child.start();"
       ].join('')
     ]);
-
-    this.child.on('started', function (child) {
-      child.stdout.on('data', function (content) {
-        console.log(content + '');
-      });
-      child.stderr.on('data', function (content) {
-        console.error(content + '');
-      });
-    });
-    // );
   },
 
   // Commands for the spawned batch
