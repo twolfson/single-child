@@ -211,5 +211,13 @@ module.exports = {
       assert.notEqual(err, null);
       done();
     });
-  }
+  },
+
+  // Kitchen sink test discovered via listen-spawn
+  // DEV: This catches annoying bug with slaughterChildren calling `killChild`
+  // DEV: on a `singleChild` due to poor semantics (was caling it `child`)
+  'A program which spawns a SingleChild which spawns a node script': function (done) {
+    // this.child = spawn('
+    done();
+  },
 };

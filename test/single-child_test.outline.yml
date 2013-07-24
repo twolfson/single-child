@@ -29,3 +29,5 @@
   - 'is running its child'
   - 'when killed':
     - 'cleans up its children'
+- 'A program which spawns a SingleChild which spawns a node script':
+  - 'exits when killed'
