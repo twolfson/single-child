@@ -1,4 +1,6 @@
 # single-child changelog
+0.3.3 - Fixed stupid bug with killing singleChild improperly
+
 0.3.2 - Added Travis CI testing
 
 0.3.1 - Added note about supporting Linux and Windows
