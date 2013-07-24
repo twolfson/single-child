@@ -1,4 +1,6 @@
 # single-child changelog
+0.3.2 - Added Travis CI testing
+
 0.3.1 - Added note about supporting Linux and Windows
 
 0.3.0 - Added Windows support with test against nested tree programs

@@ -1,4 +1,4 @@
-# single-child [![Travis CI](https://travis-ci.org/twolfson/single-child.png)](https://travis-ci.org/twolfson/single-child)
+# single-child [![Build status](https://travis-ci.org/twolfson/single-child.png)](https://travis-ci.org/twolfson/single-child)
 
 Spawn a single child process which kills itself on restart.
 
