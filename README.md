@@ -1,10 +1,12 @@
-# single-child [![Donate on Gittip](http://badgr.co/gittip/twolfson.png)](https://www.gittip.com/twolfson/)
+# single-child [![Travis CI](https://travis-ci.org/twolfson/single-child.png)](https://travis-ci.org/twolfson/single-child)
 
 Spawn a single child process which kills itself on restart.
 
 This was built as a module of [listen-spawn][listen-spawn], a CLI tool that starts a server and runs a command every time it is pinged; a [nodemon][nodemon] over HTTP.
 
 Supported and tested on Linux and Windows.
+
+Donations accepted: [![Gittip](http://badgr.co/gittip/twolfson.png)](https://www.gittip.com/twolfson/)
 
 [listen-spawn]: https://github.com/twolfson/listen-spawn
 [nodemon]: https://github.com/remy/nodemon
