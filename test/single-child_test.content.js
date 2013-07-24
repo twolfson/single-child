@@ -217,7 +217,26 @@ module.exports = {
   // DEV: This catches annoying bug with slaughterChildren calling `killChild`
   // DEV: on a `singleChild` due to poor semantics (was caling it `child`)
   'A program which spawns a SingleChild which spawns a node script': function (done) {
-    // this.child = spawn('
-    done();
+    // Start up the spawn
+    this.child = spawn('node', ['test_files/spawn-spawn.js'], {cwd: __dirname});
+
+    // Wait for it to complete starting and callback
+    setTimeout(function () {
+      done();
+    }, 100);
   },
+  'exits when killed': function (done) {
+    var child = this.child;
+    // When the child is down, callback
+    child.on('exit', function (code) {
+      done();
+    });
+
+    // Teardown the child
+    if (isWindows) {
+      exec('taskkill /pid ' + child.pid + ' /T /F');
+    } else {
+      child.kill();
+    }
+  }
 };
