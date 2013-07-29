@@ -1,4 +1,6 @@
 # single-child changelog
+0.3.4 - Updated branch of Travis CI image
+
 0.3.3 - Fixed stupid bug with killing singleChild improperly
 
 0.3.2 - Added Travis CI testing
