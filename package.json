@@ -32,9 +32,9 @@
     "nimble": "0.0.2"
   },
   "devDependencies": {
-    "grunt": "~0.3.17",
     "doubleshot": "~2.6.0",
-    "request": "~2.21.0"
+    "grunt": "~0.3.17",
+    "request": "~2.88.0"
   },
   "keywords": [
     "single",
